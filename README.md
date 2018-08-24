@@ -119,19 +119,31 @@ Connect to the CLI container:
 `docker exec -it cli bash`
 
 Install the chaincode:
-`peer chaincode install -p chaincodedev/chaincode/commercial_paper -n mycc -v 0`
+```
+peer chaincode install -p chaincodedev/chaincode/commercial_paper -n mycc -v 0
+```
 
 Instantiate the chaincode:
-`peer chaincode instantiate -n mycc -c '{"Args":["contract_Setup"]}' -C myc -v 0`
+```
+peer chaincode instantiate -n mycc -c '{"Args":["contract_Setup"]}' -C myc -v 0
+```
 
 Create a paper:
-`peer chaincode invoke -n mycc -c '{"Args":["contract_CreatePaper", "PAPER1", "20", "1000"]}' -C myc`
+```
+peer chaincode invoke -n mycc -c '{"Args":["contract_CreatePaper", "PAPER1", "20", "1000"]}' -C myc
+```
 
 Create a second paper:
-`peer chaincode invoke -n mycc -c '{"Args":["contract_CreatePaper", "PAPER2", "20", "1000"]}' -C myc`
+```
+peer chaincode invoke -n mycc -c '{"Args":["contract_CreatePaper", "PAPER2", "20", "1000"]}' -C myc
+```
 
 Add the two papers to the market "US_BLUE_ONE" with the discount "20":
-`peer chaincode invoke -n mycc -c '{"Args":["contract_ListOnMarket", "US_BLUE_ONE", "20", "PAPER1", "PAPER2"]}' -C myc`
+```
+peer chaincode invoke -n mycc -c '{"Args":["contract_ListOnMarket", "US_BLUE_ONE", "20", "PAPER1", "PAPER2"]}' -C myc
+```
 
 Check that they have been added to the market:
-`peer chaincode query -n mycc -c '{"Args":["contract_RetrieveMarket", "US_BLUE_ONE"]}' -C myc`
+```
+peer chaincode query -n mycc -c '{"Args":["contract_RetrieveMarket", "US_BLUE_ONE"]}' -C myc
+```
