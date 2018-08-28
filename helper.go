@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/hyperledger/fabric/contractapi"
+	"github.com/hyperledger/fabric/core/chaincode/contractapi"
 )
 
 func assetIDToKey(ctx contractapi.TransactionContext, objectType string, assetID string) (string, error) {
@@ -20,7 +20,6 @@ func assetIDToKey(ctx contractapi.TransactionContext, objectType string, assetID
 
 func serialize(data interface{}) ([]byte, error) {
 	bytes, err := json.Marshal(data)
-	logger.Info(string(bytes))
 	if err != nil {
 		return nil, fmt.Errorf("Failed to serialize")
 	}
@@ -32,7 +31,6 @@ func deserializeMarket(data []byte, obj *market) error {
 	err := json.Unmarshal(data, obj)
 
 	if err != nil {
-		logger.Error(err)
 		return fmt.Errorf("Failed to deserialize market: %s", string(data))
 	}
 
@@ -43,7 +41,6 @@ func deserializePaper(data []byte, obj *commercialPaper) error {
 	err := json.Unmarshal(data, obj)
 
 	if err != nil {
-		logger.Error(err)
 		return fmt.Errorf("Failed to deserialize paper: %s", string(data))
 	}
 

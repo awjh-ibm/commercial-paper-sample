@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/hyperledger/fabric/contractapi"
+	"github.com/hyperledger/fabric/core/chaincode/contractapi"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
@@ -37,6 +37,8 @@ type CommercialPaperContract struct {
 
 // Setup - creates the initial market
 func (cpc *CommercialPaperContract) Setup(ctx contractapi.TransactionContext) error {
+	logger.Info("Setup")
+
 	defaultName := "US_BLUE_ONE"
 
 	key, err := assetIDToKey(ctx, "market", defaultName)
@@ -60,6 +62,8 @@ func (cpc *CommercialPaperContract) Setup(ctx contractapi.TransactionContext) er
 
 // CreatePaper - creates a new commercial paper and stores it in the world state
 func (cpc *CommercialPaperContract) CreatePaper(ctx contractapi.TransactionContext, CUSIP string, maturity string, par string) error {
+	logger.Infof("CreatePaper - CUSIP: %s, maturity: %s, par: %s", CUSIP, maturity, par)
+
 	maturityInt, err := strconv.Atoi(maturity)
 
 	if err != nil {
@@ -116,8 +120,6 @@ func (cpc *CommercialPaperContract) ListOnMarket(ctx contractapi.TransactionCont
 	}
 
 	for _, paper := range papersToList {
-		logger.Info(paper)
-
 		paperObj, err := getPaper(ctx, paper)
 
 		if err != nil {
